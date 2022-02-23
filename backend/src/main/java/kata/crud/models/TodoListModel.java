@@ -20,6 +20,9 @@ public class TodoListModel {
     @Column(name = "name")
     private String name;
 
+    public TodoListModel(){
+    }
+
     public TodoListModel(String name){
         this.name = name;
         this.status = true;

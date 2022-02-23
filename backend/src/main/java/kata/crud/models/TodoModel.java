@@ -23,6 +23,15 @@ public class TodoModel {
     @Column(name = "list_todo_id")
     private Long id_list_todo;
 
+    public TodoModel(){
+    }
+
+    public TodoModel(String name, Long id_list_todo){
+        this.name = name;
+        this.id_list_todo = id_list_todo;
+        this.isComplete = false;
+    }
+
     public Long getId() {
         return id;
     }
