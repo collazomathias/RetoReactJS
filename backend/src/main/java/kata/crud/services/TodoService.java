@@ -23,6 +23,11 @@ public class TodoService {
         return _todos;
     }
 
+    public List<TodoModel> findAllTodosOfList(Long idTodoList){
+        List<TodoModel> todosOfList = todoRepository.findByIdTodoList(idTodoList);
+        return todosOfList;
+    }
+
     public TodoModel findTodo(Long id){
         TodoModel _todo = todoRepository.findById(id).orElseThrow();
         return _todo;

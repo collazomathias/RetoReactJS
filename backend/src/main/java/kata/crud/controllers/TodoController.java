@@ -48,6 +48,19 @@ public class TodoController {
         }
     }
 
+    @GetMapping("/list/{idTodoList}")
+    public ResponseEntity<List<TodoModel>> getAllTodosOfList(@PathVariable("idTodoList") Long idTodoList){
+        try{
+            List<TodoModel> todosOfList = todoService.findAllTodosOfList(idTodoList);
+            if(!todosOfList.isEmpty()){
+                return new ResponseEntity<>(todosOfList, HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<TodoModel> getTodo(@PathVariable("id") Long id){
         try{
@@ -81,11 +94,11 @@ public class TodoController {
         }
     }
 
-    @DeleteMapping("/list/{list_todo_id}")
-    public ResponseEntity<String> deleteAllTodosOfList(@PathVariable("list_todo_id") Long list_todo_id){
+    @DeleteMapping("/list/{idTodoList}")
+    public ResponseEntity<String> deleteAllTodosOfList(@PathVariable("idTodoList") Long idTodoList){
         try{
-            todoService.deleteAllTodosOfList(list_todo_id);
-            return new ResponseEntity<>("Todos los 'TODOs' de la lista '"+list_todo_id+"' han sido eliminados.", HttpStatus.OK);
+            todoService.deleteAllTodosOfList(idTodoList);
+            return new ResponseEntity<>("Todos los 'TODOs' de la lista '"+idTodoList+"' han sido eliminados.", HttpStatus.OK);
         }catch(Exception e){
             return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
         }
