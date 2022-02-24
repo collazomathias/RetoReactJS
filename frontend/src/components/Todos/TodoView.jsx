@@ -1,22 +1,24 @@
 import React, { useContext, useEffect } from 'react'
-import { Store, HOST_API } from './TodoProvider';
+import { TodoStore, HOST_API } from './TodoProvider';
 
 
-const TodoView = () => {
-    const { dispatch, state } = useContext(Store);
+const TodoView = (props) => {
+    const { dispatch, state } = useContext(TodoStore);
 
     useEffect(() => {
-        fetch(HOST_API + "/todos")
+        /*fetch(HOST_API + "/todos/list/" + props.listId)*/
+        fetch(HOST_API + "/todos/list/" + props.listId)
         .then((response) => response.json())
         .then((list) => {
             dispatch({ type: "update-list", list });
-        });
+        })
+        .catch(() => {});
     }, [state.list.length, dispatch]);
 
     const onDelete = (id) => {
         fetch(HOST_API + "/todos/" + id, {
             method: "DELETE",
-        }).then((list) => {
+        }).then(() => {
             dispatch({ type: "delete-item", id });
         });
     };
@@ -26,27 +28,29 @@ const TodoView = () => {
     };
 
     return (
-        <div>
-            <table>
-                <thead>
-                    <tr>
-                        <td>ID</td>
-                        <td>Name</td>
-                        <td>It is complete?</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    {state.list.map((todo) => { return (
-                    <tr key={todo.id}>
-                        <td>{todo.id}</td>
-                        <td>{todo.name}</td>
-                        <td>{todo.isComplete ? 'Si' : 'No'}</td>
-                        <td><button onClick={() => onDelete(todo.id)}>Delete</button></td>
-                        <td><button onClick={() => onEdit(todo)}>Edit</button></td>
-                    </tr> );
-                    })}
-                </tbody>
-            </table>
+        <div className='flex-column'>
+            <div className='flex-row'>
+                {
+                    (state.list.length > 0) ? 
+                    <div className='flex-row'>
+                        <h3>ID</h3>
+                        <h3>Name</h3>
+                        <h3>It is complete?</h3>
+                    </div> :
+                    <h3>Lista vacía</h3>
+                }
+            </div>
+            <div>
+                {state.list.map((todo) => { return (
+                    <div key={todo.id} className='flex-row'>
+                        <h3>{todo.id}</h3>
+                        <h3>{todo.name}</h3>
+                        <h3>{todo.isComplete ? 'Si' : 'No'}</h3>
+                        <button onClick={() => onDelete(todo.id)}>Delete</button>
+                        <button onClick={() => onEdit(todo)}>Edit</button>
+                    </div> );
+                })}
+            </div>
         </div>
     );
 }

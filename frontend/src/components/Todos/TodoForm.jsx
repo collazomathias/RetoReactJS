@@ -1,9 +1,9 @@
 import React, { useRef, useContext, useState } from 'react';
-import { Store, HOST_API } from './TodoProvider';
+import { TodoStore, HOST_API } from './TodoProvider';
 
-const TodoForm = () => {
-    const formRef = useRef(null);
-    const { dispatch, state: { item } } = useContext(Store);
+const TodoForm = (props) => {
+    const formTodoRef = useRef(null);
+    const { dispatch, state: { item } } = useContext(TodoStore);
     const [ state, setState ] = useState(item);
 
     const onAdd = (event) => {
@@ -11,7 +11,8 @@ const TodoForm = () => {
         const request = {
             name: state.name,
             id: null,
-            isComplete: false
+            isComplete: false,
+            idTodoList: props.listId
         }
         fetch(HOST_API + "/todos", {
             method: "POST",
@@ -22,7 +23,7 @@ const TodoForm = () => {
         .then((todo) => {
             dispatch({ type: "add-item", item: todo });
             setState({ name: "" });
-            formRef.current.reset();
+            formTodoRef.current.reset();
         });
     }
 
@@ -31,7 +32,8 @@ const TodoForm = () => {
         const request = {
             name: state.name,
             id: item.id,
-            isComplete: item.isComplete
+            isComplete: item.isComplete,
+            idTodoList: state.idTodoList
         };
     
         fetch(HOST_API + "/todos/ "+item.id, {
@@ -43,12 +45,12 @@ const TodoForm = () => {
         .then((todo) => {
             dispatch({ type: "update-item", item: todo });
             setState({ name: "" });
-            formRef.current.reset();
+            formTodoRef.current.reset();
         });
     };
 
     return (
-        <form ref={formRef}>
+        <form ref={formTodoRef}>
             <input type="text" name="name" defaultValue={item.name}
             onChange={(event) => {
                 setState({ ...state, name: event.target.value });

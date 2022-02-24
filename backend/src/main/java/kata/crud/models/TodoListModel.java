@@ -14,9 +14,6 @@ public class TodoListModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "status")
-    private boolean status;
-
     @Column(name = "name")
     private String name;
 
@@ -25,7 +22,6 @@ public class TodoListModel {
 
     public TodoListModel(String name){
         this.name = name;
-        this.status = true;
     }
 
     public Long getId() {
@@ -34,14 +30,6 @@ public class TodoListModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public boolean isStatus() {
-        return status;
-    }
-
-    public void setStatus(boolean status) {
-        this.status = status;
     }
 
     public String getName() {
@@ -79,7 +67,7 @@ public class TodoListModel {
 
     @Override
     public String toString() {
-        return "ListTodoModel [id=" + id + ", name=" + name + ", status=" + status + "]";
+        return "ListTodoModel [id=" + id + ", name=" + name + "]";
     }
 
 }
