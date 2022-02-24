@@ -21,14 +21,14 @@ public class TodoModel {
     private boolean isComplete;
 
     @Column(name = "list_todo_id")
-    private Long id_list_todo;
+    private Long idTodoList;
 
     public TodoModel(){
     }
 
-    public TodoModel(String name, Long id_list_todo){
+    public TodoModel(String name, Long idTodoList){
         this.name = name;
-        this.id_list_todo = id_list_todo;
+        this.idTodoList = idTodoList;
         this.isComplete = false;
     }
 
@@ -56,12 +56,12 @@ public class TodoModel {
         this.isComplete = isComplete;
     }
 
-    public Long getId_list_todo() {
-        return id_list_todo;
+    public Long getIdTodoList() {
+        return idTodoList;
     }
 
-    public void setId_list_todo(Long id_list_todo) {
-        this.id_list_todo = id_list_todo;
+    public void setIdTodoList(Long idTodoList) {
+        this.idTodoList = idTodoList;
     }
 
     @Override
@@ -91,7 +91,7 @@ public class TodoModel {
 
     @Override
     public String toString() {
-        return "TodoModel [id=" + id + ", id_list_todo=" + id_list_todo + ", isComplete=" + isComplete + ", name="
-                + name + "]";
+        return "TodoModel [id=" + id + ", idTodoList=" + idTodoList + ", isComplete=" + isComplete + ", name=" + name
+                + "]";
     }
 }

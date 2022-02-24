@@ -14,9 +14,9 @@ public class ListTodoService {
     @Autowired
     private TodoListRepository todoListRepository;
 
-    public TodoListModel saveTodoList(TodoListModel todoLista){
-        TodoListModel todoList = todoListRepository.save(new TodoListModel(todoLista.getName()));
-        return todoList;
+    public TodoListModel saveTodoList(TodoListModel todoList){
+        TodoListModel _todoList = todoListRepository.save(new TodoListModel(todoList.getName()));
+        return _todoList;
     }
 
     public List<TodoListModel> findAllTodoLists(){

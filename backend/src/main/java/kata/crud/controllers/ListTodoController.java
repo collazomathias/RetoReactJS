@@ -20,7 +20,7 @@ import kata.crud.services.ListTodoService;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/todo-lists")
 public class ListTodoController {
 
     @Autowired
