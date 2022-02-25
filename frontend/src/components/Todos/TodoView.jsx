@@ -1,5 +1,7 @@
 import React, { Fragment, useContext, useEffect } from 'react'
 import { TodoStore, HOST_API } from './TodoProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faTrash, faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons';
 
 
 const TodoView = (props) => {
@@ -26,12 +28,18 @@ const TodoView = (props) => {
         dispatch({ type: "edit-item", item: todo });
     };
 
-    const changeStatus = (id) => {
-        fetch(HOST_API + "/todos/status/" + id, {
-            method: "PUT",
+    const changeStatus = (todo) => {
+        fetch(HOST_API + "/todos/status/" + todo.id,{
+          method: "PUT",
+          headers: {
+            'Content-Type': 'application/json'
+          }
         })
-        .catch(() => {});
-    }
+          .then(response => response.json())
+          .then((todo) => {
+            dispatch({ type: "update-item", item: todo });
+          });
+      };
 
     return (
         <Fragment>
@@ -41,24 +49,27 @@ const TodoView = (props) => {
                         <h3>ID</h3>
                         <h3>Name</h3>
                         <h3>It is complete?</h3>
-                        <h3></h3>
-                        <h3></h3>
+                        <h3> </h3>
                     </div> 
                 : <h3 className='empty-text'>Empty list.</h3>
             }
             {state.list.map((todo) => { return (
                 <div key={todo.id} className='todo-container-info'>
-                    <h3>{todo.id}</h3>
-                    <h3>{todo.name}</h3>
+                    <h3 className={(todo.complete === true) ?'text-disabled' : ''}>{todo.id}</h3>
+                    <h3 className={(todo.complete === true) ?'text-disabled' : ''}>{todo.name}</h3>
                     <div className='todo-btn-status-container'>
-                        {(todo.complete === true) ? 
-                            <button className='todo-btn-status status-complete' onClick={() => changeStatus(todo.id)}>Si</button>
-                            : 
-                            <button className='todo-btn-status status-incomplete' onClick={() => changeStatus(todo.id)}>No</button>
-                        }
+                        <button className={(todo.complete === true) ? 
+                            'todo-btn-status status-complete' : 
+                            'todo-btn-status status-incomplete' 
+                            } onClick={() => changeStatus(todo)}>{(todo.complete === true) ? 
+                                <FontAwesomeIcon icon={faThumbsUp} /> : <FontAwesomeIcon icon={faThumbsDown} />}</button>
                     </div>
-                    <button className='todo-btn-delete' onClick={() => onDelete(todo.id)}>Delete</button>
-                    <button className='todo-btn-edit' onClick={() => onEdit(todo)}>Edit</button>
+                    <div className='todo-btn-container'>
+                        <button className='todo-btn-delete' onClick={() => onDelete(todo.id)}><FontAwesomeIcon icon={faTrash} /> DELETE</button>
+                        <button disabled={todo.complete} className={(todo.complete === true) ? 
+                            'todo-btn-edit-disabled' : 'todo-btn-edit' } 
+                            onClick={() => onEdit(todo)}><FontAwesomeIcon icon={faEdit} /> EDIT</button>
+                    </div>
                 </div> );
             })}
         </Fragment>

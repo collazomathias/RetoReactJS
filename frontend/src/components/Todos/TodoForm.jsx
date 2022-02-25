@@ -1,13 +1,22 @@
 import React, { useRef, useContext, useState } from 'react';
 import { TodoStore, HOST_API } from './TodoProvider';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEdit, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const TodoForm = (props) => {
     const formTodoRef = useRef(null);
     const { dispatch, state: { item } } = useContext(TodoStore);
     const [ state, setState ] = useState(item);
 
+    const [ message, setMessage ] = useState(false);
+
     const onAdd = (event) => {
         event.preventDefault();
+        console.log(state.name.length);
+        if(state.name.length < 3 || state.name.length > 50){
+            setMessage(true);
+            return;
+        }
         const request = {
             name: state.name,
             id: null,
@@ -24,11 +33,16 @@ const TodoForm = (props) => {
             dispatch({ type: "add-item", item: todo });
             setState({ name: "" });
             formTodoRef.current.reset();
+            setMessage(false);
         });
     }
 
     const onEdit = (event) => {
         event.preventDefault();
+        if(state.name.length < 3 || state.name.length > 50){
+            setMessage(true);
+            return;
+        }
         const request = {
             name: state.name,
             id: item.id,
@@ -45,17 +59,21 @@ const TodoForm = (props) => {
             dispatch({ type: "update-item", item: todo });
             setState({ name: "" });
             formTodoRef.current.reset();
+            setMessage(false);
         });
     };
 
     return (
-        <form ref={formTodoRef} className='todo-header'>
-            <input type="text" name="name" placeholder='What you have to do?' defaultValue={item.name}
-            onChange={(event) => {
-                setState({ ...state, name: event.target.value });
-            }}></input>
-            {!item.id && <button onClick={onAdd}>Add todo</button>}
-            {item.id && <button onClick={onEdit}>Edit</button>}
+        <form ref={formTodoRef}>
+            <div className='todo-header'>
+                <input type="text" name="name" placeholder='What you have to do?' defaultValue={item.name}
+                onChange={(event) => {
+                    setState({ ...state, name: event.target.value });
+                }}></input>
+                {!item.id && <button onClick={onAdd}><FontAwesomeIcon icon={faPlus} /> ADD</button>}
+                {item.id && <button onClick={onEdit}><FontAwesomeIcon icon={faEdit} /> EDIT</button>}
+            </div>
+            <p className={(message === true) ? 'errorMessage show' : 'errorMessage'}>You must enter between 3 and 50 characters.</p>
         </form>
     );
 }

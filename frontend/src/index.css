@@ -33,9 +33,13 @@
     color: darkslategray;
 }
 
-.list-form {
-    margin: auto auto;
+.list-form-container {
     width: 80%;
+    margin: auto auto;
+}
+
+.list-form {
+    width: 100%;
     height: 50px;
     display: flex;
     flex-direction: row;
@@ -94,7 +98,7 @@
 }
 
 .list-header h3:nth-child(1){
-    width: 5%;
+    width: 10%;
     padding-left: 20px;
     font-size: 18px;
     font-family:"Courier New", arial, helvética;
@@ -114,7 +118,7 @@
 
 .list-btn-delete {
     height: 40px;
-    width: calc(10% - 10px);
+    width: 120px;
     background-color: crimson;
     color: white;
     font-size: 18px;
@@ -127,7 +131,7 @@
 
 .list-btn-edit {
     height: 40px;
-    width: calc(10% - 10px);
+    width: 120px;
     background-color: #1572A1;
     color: white;
     font-size: 18px;
@@ -137,6 +141,7 @@
     border: none;
     transition: 0.3s all ease;
     border-radius: 4px;
+    margin-left: 10px;
 }
 
 .list-btn-delete:hover, .list-btn-edit:hover {
@@ -207,13 +212,12 @@
 }
 
 .todo-header-info h3:nth-child(1) {
-    padding-left: 20px;
     width: 5%;
+    padding-left: 20px;
 }
 
 .todo-header-info h3:nth-child(2) {
-    padding-left: 20px;
-    width: 55%;
+    width: 55%
 }
 
 .todo-header-info h3:nth-child(3) {
@@ -222,13 +226,8 @@
 }
 
 .todo-header-info h3:nth-child(4) {
-    margin-right: 20px;
-    width: calc(10% - 20px);
-}
-
-.todo-header-info h3:nth-child(5) {
-    margin-right: 20px;
-    width: calc(10% - 20px);
+    width: 20%;
+    margin-right: 40px;
 }
 
 .empty-text {
@@ -253,18 +252,19 @@
 
 .todo-container-info h3:nth-child(1){
     width: 5%;
-    padding-left: 20px;
     color: darkslategray;
     font-family:"Courier New", arial, helvética;
     font-size: 18px;
+    transition: 0.3s all ease;
+    padding-left: 20px;
 }
 
 .todo-container-info h3:nth-child(2){
     width: 55%;
-    padding-left: 20px;
     color: darkslategray;
     font-family:"Courier New", arial, helvética;
     font-size: 18px;
+    transition: 0.3s all ease;
 }
 
 .todo-btn-status-container {
@@ -275,11 +275,33 @@
     text-align: center;
 }
 
+.todo-btn-container {
+    width: 20%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: right;
+    padding: 0 20px;
+}
+
 .todo-btn-delete {
     height: 40px;
-    margin-right: 20px;
-    width: calc(10% - 20px);
+    width: 120px;
     background-color: crimson;
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    font-family:"Courier New", arial, helvética;
+    border: none;
+    transition: 0.3s all ease;
+    border-radius: 4px;
+    margin-right: 10px;
+}
+
+.todo-btn-edit {
+    height: 40px;
+    width: 120px;
+    background-color: #1572A1;;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -289,11 +311,10 @@
     border-radius: 4px;
 }
 
-.todo-btn-edit {
+.todo-btn-edit-disabled {
     height: 40px;
-    margin-right: 20px;
-    width: calc(10% - 20px);
-    background-color: #1572A1;;
+    width: 120px;
+    background-color: gray;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -331,4 +352,23 @@
 
 .status-incomplete {
     background-color: crimson;
+}
+
+.text-disabled {
+    color: lightgray !important;
+    transition: 0.3s all ease;
+}
+
+.errorMessage {
+    display: none;
+    margin-top: 10px;
+    color: crimson;
+    font-weight: bold;
+    font-family:"Courier New", arial, helvética;
+    font-size: small;
+    transition: 0.3s all ease;
+}
+
+.show {
+    display: block;
 }
