@@ -46,13 +46,13 @@ const ListForm = () => {
     };
 
     return (
-        <form ref={formListRef}>
-            <input type="text" name="name" defaultValue={item.name}
+        <form ref={formListRef} className='list-form'>
+            <input type='text' name='name' placeholder='List name...' defaultValue={item.name}
             onChange={(event) => {
                 setState({ ...state, name: event.target.value });
             }}></input>
-            {!item.id && <button onClick={onAdd}>Add</button>}
-            {item.id && <button onClick={onEdit}>Edit</button>}
+            {!item.id && <button onClick={onAdd}>Add list</button>}
+            {item.id && <button onClick={onEdit}>Edit list</button>}
         </form>
     );
 }

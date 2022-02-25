@@ -57,4 +57,11 @@ public class TodoService {
         todoRepository.deleteById(id);
     }
 
+    public TodoModel changeStatusTodo(Long id){
+        TodoModel _todo = todoRepository.getById(id);
+        _todo.setComplete((_todo.isComplete() == true) ? false : true);
+        TodoModel _todoUpdated = todoRepository.save(_todo);
+        return _todoUpdated;
+    }
+
 }

@@ -84,6 +84,16 @@ public class TodoController {
         }
     }
 
+    @PutMapping("/status/{id}")
+    public ResponseEntity<TodoModel> changeStatusTodo(@PathVariable("id") Long id){
+        try{
+            TodoModel todoListUpdated = todoService.changeStatusTodo(id);
+            return new ResponseEntity<>(todoListUpdated, HttpStatus.OK);
+        }catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.EXPECTATION_FAILED);
+        }
+    }
+
     @DeleteMapping
     public ResponseEntity<String> deleteAllTodos(){
         try{

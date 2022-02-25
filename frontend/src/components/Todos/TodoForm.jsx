@@ -35,7 +35,6 @@ const TodoForm = (props) => {
             isComplete: item.isComplete,
             idTodoList: state.idTodoList
         };
-    
         fetch(HOST_API + "/todos/ "+item.id, {
             method: "PUT",
             body: JSON.stringify(request),
@@ -50,12 +49,12 @@ const TodoForm = (props) => {
     };
 
     return (
-        <form ref={formTodoRef}>
-            <input type="text" name="name" defaultValue={item.name}
+        <form ref={formTodoRef} className='todo-header'>
+            <input type="text" name="name" placeholder='What you have to do?' defaultValue={item.name}
             onChange={(event) => {
                 setState({ ...state, name: event.target.value });
             }}></input>
-            {!item.id && <button onClick={onAdd}>Add</button>}
+            {!item.id && <button onClick={onAdd}>Add todo</button>}
             {item.id && <button onClick={onEdit}>Edit</button>}
         </form>
     );

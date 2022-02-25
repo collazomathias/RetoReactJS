@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react'
+import React, { Fragment, useContext, useEffect } from 'react'
 import { TodoStore, HOST_API } from './TodoProvider';
 
 
@@ -6,7 +6,6 @@ const TodoView = (props) => {
     const { dispatch, state } = useContext(TodoStore);
 
     useEffect(() => {
-        /*fetch(HOST_API + "/todos/list/" + props.listId)*/
         fetch(HOST_API + "/todos/list/" + props.listId)
         .then((response) => response.json())
         .then((list) => {
@@ -27,31 +26,42 @@ const TodoView = (props) => {
         dispatch({ type: "edit-item", item: todo });
     };
 
+    const changeStatus = (id) => {
+        fetch(HOST_API + "/todos/status/" + id, {
+            method: "PUT",
+        })
+        .catch(() => {});
+    }
+
     return (
-        <div className='flex-column'>
-            <div className='flex-row'>
-                {
-                    (state.list.length > 0) ? 
-                    <div className='flex-row'>
+        <Fragment>
+            {
+                (state.list.length > 0) ?
+                    <div className='todo-header-info'>
                         <h3>ID</h3>
                         <h3>Name</h3>
                         <h3>It is complete?</h3>
-                    </div> :
-                    <h3>Lista vacía</h3>
-                }
-            </div>
-            <div>
-                {state.list.map((todo) => { return (
-                    <div key={todo.id} className='flex-row'>
-                        <h3>{todo.id}</h3>
-                        <h3>{todo.name}</h3>
-                        <h3>{todo.isComplete ? 'Si' : 'No'}</h3>
-                        <button onClick={() => onDelete(todo.id)}>Delete</button>
-                        <button onClick={() => onEdit(todo)}>Edit</button>
-                    </div> );
-                })}
-            </div>
-        </div>
+                        <h3></h3>
+                        <h3></h3>
+                    </div> 
+                : <h3 className='empty-text'>Empty list.</h3>
+            }
+            {state.list.map((todo) => { return (
+                <div key={todo.id} className='todo-container-info'>
+                    <h3>{todo.id}</h3>
+                    <h3>{todo.name}</h3>
+                    <div className='todo-btn-status-container'>
+                        {(todo.complete === true) ? 
+                            <button className='todo-btn-status status-complete' onClick={() => changeStatus(todo.id)}>Si</button>
+                            : 
+                            <button className='todo-btn-status status-incomplete' onClick={() => changeStatus(todo.id)}>No</button>
+                        }
+                    </div>
+                    <button className='todo-btn-delete' onClick={() => onDelete(todo.id)}>Delete</button>
+                    <button className='todo-btn-edit' onClick={() => onEdit(todo)}>Edit</button>
+                </div> );
+            })}
+        </Fragment>
     );
 }
  

@@ -33,21 +33,18 @@ const ListView = () => {
         <Fragment>
             {state.list.map((list) => { return (
             <div key={list.id}>
-                <div>
-                    <div className='flex-row'>
+                <div className='list-container'>
+                    <div className='list-header'>
                         <h3>ID: <span>{list.id}</span></h3>
                         <h3>Name: <span>{list.name}</span></h3>
-                        <button onClick={() => onDelete(list.id)}>Delete</button>
-                        <button onClick={() => onEdit(list)}>Edit</button>
-                    </div> 
-                </div>
-                <div>
+                        <button className='list-btn-delete' onClick={() => onDelete(list.id)}>Delete</button>
+                        <button className='list-btn-edit' onClick={() => onEdit(list)}>Edit</button>
+                    </div>
                     <TodoProvider>
-                        <div className='flex-row'>
-                            <h3>TODO's de la lista:</h3>
+                        <div className='todo-container'>
                             <TodoForm listId = {list.id} />
+                            <TodoView listId = {list.id} />
                         </div>
-                        <TodoView listId = {list.id} />
                     </TodoProvider>
                 </div>
             </div>

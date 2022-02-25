@@ -14,6 +14,9 @@ public class ListTodoService {
     @Autowired
     private TodoListRepository todoListRepository;
 
+    @Autowired
+    private TodoService todoService;
+
     public TodoListModel saveTodoList(TodoListModel todoList){
         TodoListModel _todoList = todoListRepository.save(new TodoListModel(todoList.getName()));
         return _todoList;
@@ -37,10 +40,12 @@ public class ListTodoService {
     }
 
     public void deleteAllTodoLists(){
+        todoService.deleteAllTodos();
         todoListRepository.deleteAll();
     }
 
     public void deleteTodoList(Long id){
+        todoService.deleteAllTodosOfList(id);
         todoListRepository.deleteById(id);
     }
     
