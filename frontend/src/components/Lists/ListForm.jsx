@@ -12,7 +12,7 @@ const ListForm = () => {
 
     const onAdd = (event) => {
         event.preventDefault();
-        if(state.name.length < 3 || state.name.length > 30){
+        if(typeof(state.name) === 'undefined' || state.name.length < 3 || state.name.length > 30){
             setMessage(true);
             return;
         }
@@ -36,7 +36,8 @@ const ListForm = () => {
 
     const onEdit = (event) => {
         event.preventDefault();
-        if(state.name.length < 3 || state.name.length > 30){
+        setState(item);
+        if(typeof(state.name) === 'undefined' || state.name.length < 3 || state.name.length > 30){
             setMessage(true);
             return;
         }

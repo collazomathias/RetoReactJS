@@ -154,6 +154,7 @@
     border-radius: 4px;
     border: 1px solid darkslategray;
     padding: 20px;
+    background-color: rgba(251, 253, 246, 0.883);
 }
 
 .todo-header {
@@ -247,6 +248,7 @@
     align-items: center;
     justify-content: space-between;
     color: darkslategray;
+    background-color: white;
 }
 
 .todo-container-info h3:nth-child(1){

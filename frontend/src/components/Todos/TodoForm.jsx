@@ -12,8 +12,7 @@ const TodoForm = (props) => {
 
     const onAdd = (event) => {
         event.preventDefault();
-        console.log(state.name.length);
-        if(state.name.length < 3 || state.name.length > 50){
+        if(typeof(state.name) === 'undefined' || state.name.length < 3 || state.name.length > 50){
             setMessage(true);
             return;
         }
