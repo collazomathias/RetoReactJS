@@ -49,7 +49,7 @@
 
 .list-form input {
     height: 40px;
-    width: 90%;
+    width: calc(100% - 140px);
     font-family:"Courier New", arial, helvética;
     font-size: 18px;
     padding-left: 10px;
@@ -59,7 +59,7 @@
 
 .list-form button {
     height: 40px;
-    width: calc(10% - 20px);
+    width: 120px;
     border-radius: 4px;
     background-color: #15a13f;
     color: white;
@@ -92,7 +92,6 @@
     color: darkslategray;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
     text-align: left;
 }
@@ -105,7 +104,7 @@
 }
 
 .list-header h3:nth-child(2){
-    width: 70%;
+    width: calc(90% - 300px);
     padding-left: 20px;
     font-size: 18px;
     font-family:"Courier New", arial, helvética;
@@ -168,7 +167,7 @@
 }
 
 .todo-header input {
-    width: 90%;
+    width: calc(100% - 140px);
     height: 40px;
     font-family:"Courier New", arial, helvética;
     font-size: 18px;
@@ -181,7 +180,7 @@
     background-color: #15a13f;
     border: none;
     height: 40px;
-    width: calc(10% - 20px);
+    width: 120px;
     color: white;
     font-family:"Courier New", arial, helvética;
     font-size: 18px;

@@ -7,6 +7,7 @@ import { faEdit, faTrash, faThumbsUp, faThumbsDown } from '@fortawesome/free-sol
 const TodoView = (props) => {
     const { dispatch, state } = useContext(TodoStore);
 
+
     useEffect(() => {
         fetch(HOST_API + "/todos/list/" + props.listId)
         .then((response) => response.json())

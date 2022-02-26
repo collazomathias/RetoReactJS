@@ -44,7 +44,6 @@ const ListForm = () => {
             name: state.name,
             id: item.id,
         };
-    
         fetch(HOST_API + "/lists/ "+item.id, {
             method: "PUT",
             body: JSON.stringify(request),
@@ -62,7 +61,7 @@ const ListForm = () => {
     return (
         <form ref={formListRef} className='list-form-container'>
             <div className='list-form'>
-                <input type='text' name='name' placeholder='List name...' defaultValue={item.name}
+                <input id='input-list-name' type='text' name='name' placeholder='List name...' defaultValue={item.name}
                 onChange={(event) => {
                     setState({ ...state, name: event.target.value });
                 }}></input>
