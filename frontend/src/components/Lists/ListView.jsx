@@ -33,25 +33,31 @@ const ListView = () => {
 
     return (
         <Fragment>
-            {state.list.map((list) => { return (
-            <div key={list.id}>
-                <div className='list-container'>
-                    <div className='list-header'>
-                        <h3>ID: <span>{list.id}</span></h3>
-                        <h3>Name: <span>{list.name}</span></h3>
-                        <button className='list-btn-delete' onClick={() => onDelete(list.id)}><FontAwesomeIcon icon={faTrash} /> DELETE</button>
-                        <button className='list-btn-edit' onClick={() => onEdit(list)}><FontAwesomeIcon icon={faEdit} /> EDIT</button>
-                    </div>
-                    <TodoProvider>
-                        <div className='todo-container'>
-                            <TodoForm listId = {list.id} />
-                            <TodoView listId = {list.id} />
+            <div className='container'>
+            {
+                (state.list.length > 0) ?
+                <Fragment>
+                {state.list.map((list) => { return (
+                    <div key={list.id}>
+                        <div className='list-container'>
+                            <div className='list-header'>
+                                <h3>ID: <span>{list.id}</span></h3>
+                                <h3>Name: <span>{list.name}</span></h3>
+                                <button className='list-btn-delete' onClick={() => onDelete(list.id)}><FontAwesomeIcon icon={faTrash} /> DELETE</button>
+                                <button className='list-btn-edit' onClick={() => onEdit(list)}><FontAwesomeIcon icon={faEdit} /> EDIT</button>
+                            </div>
+                            <TodoProvider>
+                                <div className='todo-container'>
+                                    <TodoForm listId = {list.id} />
+                                    <TodoView listId = {list.id} />
+                                </div>
+                            </TodoProvider>
                         </div>
-                    </TodoProvider>
-                </div>
+                    </div>
+                );
+                })}</Fragment> : <h3 className='empty-text'>Empty list.</h3>
+            }
             </div>
-            );
-            })}
         </Fragment>
     );
 }
