@@ -37,6 +37,8 @@ const ListForm = () => {
     const onEdit = (event) => {
         event.preventDefault();
         setState(item);
+        console.log(item.name);
+        console.log(state.name);
         if(typeof(state.name) === 'undefined' || state.name.length < 3 || state.name.length > 30){
             setMessage(true);
             return;
